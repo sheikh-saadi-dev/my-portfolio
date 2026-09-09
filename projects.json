@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Foodie's Kitchen - Restaurant Landing",
+    "tag": "Restaurant",
+    "description": "A modern landing page for a local restaurant with menu showcase, online ordering, and reservation system.",
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+    "url": "#"
+  },
+  {
+    "id": 2,
+    "title": "Glow Salon - Beauty Parlour",
+    "tag": "Beauty & Salon",
+    "description": "Elegant landing page for a beauty salon featuring services gallery, booking system, and customer testimonials.",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop",
+    "url": "#"
+  },
+  {
+    "id": 3,
+    "title": "MediCare Clinic - Health Center",
+    "tag": "Healthcare",
+    "description": "Professional landing page for a local clinic with doctor profiles, appointment booking, and health services.",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+    "url": "#"
+  }
+]
