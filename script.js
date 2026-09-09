@@ -258,38 +258,32 @@ function initAnimations() {
     counters.forEach(c => counterObserver.observe(c));
 }
 
-// ===== LOAD PROJECTS FROM LOCALSTORAGE =====
-function loadProjects() {
+// ===== LOAD PROJECTS FROM GITHUB =====
+async function loadProjects() {
     const grid = document.getElementById('projectsGrid');
-    const defaultProjects = [
-        {
-            id: 1,
-            title: "Foodie's Kitchen - Restaurant Landing",
-            tag: "Restaurant",
-            description: "A modern landing page for a local restaurant with menu showcase, online ordering, and reservation system.",
-            image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
-            url: "#"
-        },
-        {
-            id: 2,
-            title: "Glow Salon - Beauty Parlour",
-            tag: "Beauty & Salon",
-            description: "Elegant landing page for a beauty salon featuring services gallery, booking system, and customer testimonials.",
-            image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop",
-            url: "#"
-        },
-        {
-            id: 3,
-            title: "MediCare Clinic - Health Center",
-            tag: "Healthcare",
-            description: "Professional landing page for a local clinic with doctor profiles, appointment booking, and health services.",
-            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
-            url: "#"
+    if (!grid) return;
+    
+    try {
+        const response = await fetch(
+            `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`
+        );
+        
+        if (response.ok) {
+            const projects = await response.json();
+            renderProjects(projects);
+        } else {
+            throw new Error('Failed to fetch');
         }
-    ];
+    } catch (error) {
+        console.log('Using default projects');
+        renderProjects(getDefaultProjects());
+    }
+}
 
-    const projects = JSON.parse(localStorage.getItem('projects')) || defaultProjects;
-
+function renderProjects(projects) {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    
     grid.innerHTML = projects.map(project => `
         <div class="project-card reveal">
             <div class="project-image">
@@ -302,24 +296,38 @@ function loadProjects() {
                 <span class="project-tag">${project.tag}</span>
                 <h3>${project.title}</h3>
                 <p>${project.description}</p>
-                <a href="${project.url}" class="btn-demo" target="_blank">Live Demo <i class="fas fa-arrow-right"></i></a>
+                <a href="${project.url}" class="btn-demo" target="_blank">
+                    Live Demo <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     `).join('');
 
-    // Re-observe new elements
+    // Re-observe for animations
     setTimeout(() => {
-        const newElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.15 });
-        newElements.forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.15 });
+            observer.observe(el);
+        });
     }, 100);
 }
 
-loadProjects();
+function getDefaultProjects() {
+    return [
+        { id: 1, title: "Foodie's Kitchen - Restaurant Landing", tag: "Restaurant", description: "A modern landing page for a local restaurant.", image: "https://images.unsplash.com/photo-1555396273?w=600", url: "#" },
+        { id: 2, title: "Glow Salon - Beauty Parlour", tag: "Beauty & Salon", description: "Elegant landing page for a beauty salon.", image: "https://images.unsplash.com/photo-1560066984?w=600", url: "#" },
+        { id: 3, title: "MediCare Clinic - Health Center", tag: "Healthcare", description: "Professional landing page for a local clinic.", image: "https://images.unsplash.com/photo-1576091160399?w=600", url: "#" }
+    ];
+}
+
+// Load projects when page loads
+if (document.getElementById('projectsGrid')) {
+    loadProjects();
+}
 
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.getElementById('scrollTop');
