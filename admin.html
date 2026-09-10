@@ -303,6 +303,50 @@
             border-color: var(--gold);
             background: rgba(212, 175, 55, 0.1);
         }
+        .password-strength {
+            height: 6px;
+            background: var(--dark-border);
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .strength-weak { width: 33%; background: var(--danger); }
+        .strength-medium { width: 66%; background: var(--warning); }
+        .strength-strong { width: 100%; background: var(--success); }
+        .strength-text {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: var(--text-muted);
+        }
+        .password-requirements {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .password-requirements h4 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            transition: var(--transition);
+        }
+        .req-item.met { color: var(--success); }
+        .req-item i { font-size: 0.75rem; width: 16px; }
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
             .navbar { flex-direction: column; }
@@ -356,6 +400,9 @@
                 <a href="index.html" target="_blank" class="btn btn-secondary btn-small">
                     <i class="fas fa-external-link-alt"></i> View Site
                 </a>
+                <button class="btn btn-secondary btn-small" onclick="openPasswordModal()">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
                 <button class="btn btn-primary btn-small" onclick="openProjectModal()">
                     <i class="fas fa-plus"></i> Add Project
                 </button>
@@ -501,6 +548,71 @@
         </div>
     </div>
 
+    <!-- Password Change Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Change Password</h2>
+                <button class="close-modal" onclick="closePasswordModal()"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <span>Choose a strong password to keep your admin panel secure.</span>
+            </div>
+
+            <div class="alert alert-error" id="pwdChangeError"></div>
+            <div class="alert alert-success" id="pwdChangeSuccess"></div>
+
+            <div class="password-requirements">
+                <h4><i class="fas fa-shield-alt"></i> Password Requirements</h4>
+                <div class="req-item" id="req-length"><i class="fas fa-circle"></i> At least 8 characters</div>
+                <div class="req-item" id="req-upper"><i class="fas fa-circle"></i> One uppercase letter (A-Z)</div>
+                <div class="req-item" id="req-lower"><i class="fas fa-circle"></i> One lowercase letter (a-z)</div>
+                <div class="req-item" id="req-number"><i class="fas fa-circle"></i> One number (0-9)</div>
+                <div class="req-item" id="req-special"><i class="fas fa-circle"></i> One special character (!@#$%^&*)</div>
+            </div>
+
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Current Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="currentPassword" placeholder="Enter current password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('currentPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> New Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="newPassword" placeholder="Enter new password" required oninput="checkPasswordStrength(this.value)">
+                        <button type="button" class="toggle-password" onclick="togglePassword('newPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText">Password strength</div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="changePasswordBtn">
+                    <i class="fas fa-save"></i> Update Password
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="closePasswordModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
     <script src="config.js"></script>
     <script>
         // ===== AUTHENTICATION =====
@@ -524,8 +636,13 @@
             loginBtn.innerHTML = '<div class="loading-spinner"></div> Verifying...';
             loginBtn.disabled = true;
 
+            // Get stored credentials
+            const storedAuth = JSON.parse(localStorage.getItem('adminAuth') || '{}');
+            const currentUsername = storedAuth.username || DEFAULT_USERNAME;
+            const currentPassword = storedAuth.password || DEFAULT_PASSWORD;
+
             // Simple authentication
-            if (username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD) {
+            if (username === currentUsername && password === currentPassword) {
                 localStorage.setItem('adminLoggedIn', 'true');
                 showDashboard();
             } else {
@@ -559,12 +676,153 @@
             }
         }
 
+        // ===== PASSWORD CHANGE =====
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('active');
+            hideAlerts('pwdChangeError', 'pwdChangeSuccess');
+            document.getElementById('passwordForm').reset();
+            resetRequirements();
+            document.getElementById('strengthBar').className = 'password-strength-bar';
+            document.getElementById('strengthText').textContent = 'Password strength';
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+        }
+
+        function checkPasswordStrength(password) {
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('strengthText');
+
+            let score = 0;
+            if (password.length >= 8) score++;
+            if (password.length >= 12) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[!@#$%^&*]/.test(password)) score++;
+
+            // Update requirements
+            updateRequirement('req-length', password.length >= 8);
+            updateRequirement('req-upper', /[A-Z]/.test(password));
+            updateRequirement('req-lower', /[a-z]/.test(password));
+            updateRequirement('req-number', /[0-9]/.test(password));
+            updateRequirement('req-special', /[!@#$%^&*]/.test(password));
+
+            // Update strength bar
+            bar.className = 'password-strength-bar';
+            if (password.length === 0) {
+                text.textContent = 'Password strength';
+            } else if (score <= 2) {
+                bar.classList.add('strength-weak');
+                text.textContent = 'Weak password';
+                text.style.color = 'var(--danger)';
+            } else if (score <= 4) {
+                bar.classList.add('strength-medium');
+                text.textContent = 'Medium strength';
+                text.style.color = 'var(--warning)';
+            } else {
+                bar.classList.add('strength-strong');
+                text.textContent = 'Strong password';
+                text.style.color = 'var(--success)';
+            }
+        }
+
+        function updateRequirement(id, met) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (met) {
+                    el.classList.add('met');
+                    el.querySelector('i').className = 'fas fa-check-circle';
+                } else {
+                    el.classList.remove('met');
+                    el.querySelector('i').className = 'fas fa-circle';
+                }
+            }
+        }
+
+        function resetRequirements() {
+            ['req-length', 'req-upper', 'req-lower', 'req-number', 'req-special'].forEach(id => {
+                updateRequirement(id, false);
+            });
+        }
+
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentPwd = document.getElementById('currentPassword').value;
+            const newPwd = document.getElementById('newPassword').value;
+            const confirmPwd = document.getElementById('confirmPassword').value;
+            const btn = document.getElementById('changePasswordBtn');
+
+            hideAlerts('pwdChangeError', 'pwdChangeSuccess');
+
+            // Validate
+            if (newPwd.length < 8) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters.');
+                return;
+            }
+            if (!/[A-Z]/.test(newPwd)) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Password must contain at least one uppercase letter.');
+                return;
+            }
+            if (!/[a-z]/.test(newPwd)) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Password must contain at least one lowercase letter.');
+                return;
+            }
+            if (!/[0-9]/.test(newPwd)) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Password must contain at least one number.');
+                return;
+            }
+            if (!/[!@#$%^&*]/.test(newPwd)) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Password must contain at least one special character.');
+                return;
+            }
+            if (newPwd !== confirmPwd) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Passwords do not match.');
+                return;
+            }
+
+            // Verify current password
+            const storedAuth = JSON.parse(localStorage.getItem('adminAuth') || '{}');
+            const currentPassword = storedAuth.password || DEFAULT_PASSWORD;
+
+            if (currentPwd !== currentPassword) {
+                showAlert('pwdChangeError', '<i class="fas fa-exclamation-circle"></i> Current password is incorrect.');
+                return;
+            }
+
+            // Save new password
+            btn.innerHTML = '<div class="loading-spinner"></div> Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const newAuth = {
+                    username: storedAuth.username || DEFAULT_USERNAME,
+                    password: newPwd,
+                    lastChanged: new Date().toISOString()
+                };
+                localStorage.setItem('adminAuth', JSON.stringify(newAuth));
+
+                showAlert('pwdChangeSuccess', '<i class="fas fa-check-circle"></i> Password changed successfully!');
+                btn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+                btn.disabled = false;
+
+                setTimeout(() => {
+                    closePasswordModal();
+                }, 1500);
+            }, 1000);
+        });
+
         // ===== PROJECT MANAGEMENT =====
         function loadProjects() {
             // Load from localStorage first
             const stored = localStorage.getItem('adminProjects');
             if (stored) {
-                projects = JSON.parse(stored);
+                try {
+                    projects = JSON.parse(stored);
+                } catch (e) {
+                    projects = getDefaultProjects();
+                }
             } else {
                 projects = getDefaultProjects();
                 saveToLocalStorage();
@@ -794,7 +1052,7 @@
             showStatus('Loading from GitHub...', 'syncing');
 
             try {
-                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.username) {
+                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.username || GITHUB_CONFIG.username === 'YOUR_GITHUB_USERNAME') {
                     showStatus('⚠️ GitHub config not set. Using local data.', 'error');
                     return;
                 }
@@ -821,7 +1079,7 @@
             showStatus('Pushing to GitHub...', 'syncing');
 
             try {
-                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.token) {
+                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.token || GITHUB_CONFIG.token === 'YOUR_PERSONAL_ACCESS_TOKEN_HERE') {
                     showStatus('⚠️ GitHub token not set in config.js', 'error');
                     return;
                 }
@@ -903,6 +1161,9 @@
         // Close modal on outside click
         document.getElementById('projectModal').addEventListener('click', function(e) {
             if (e.target === this) closeProjectModal();
+        });
+        document.getElementById('passwordModal').addEventListener('click', function(e) {
+            if (e.target === this) closePasswordModal();
         });
     </script>
 </body>
