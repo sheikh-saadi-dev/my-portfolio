@@ -10,32 +10,24 @@
         :root {
             --gold: #d4af37;
             --gold-dark: #b8960c;
-            --gold-light: #f4e4a6;
             --dark-bg: #0a0a0a;
             --dark-card: #111111;
             --dark-surface: #1a1a1a;
             --dark-border: #2a2a2a;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
-            --text-muted: #666666;
             --danger: #ef4444;
             --success: #10b981;
             --warning: #f59e0b;
             --info: #3b82f6;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            --transition: all 0.3s ease;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
             color: var(--text-primary);
             min-height: 100vh;
         }
-
-        /* ===== LOGIN SCREEN ===== */
         .login-container {
             min-height: 100vh;
             display: flex;
@@ -44,7 +36,6 @@
             padding: 20px;
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
         }
-
         .login-box {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
@@ -52,488 +43,238 @@
             padding: 40px;
             width: 100%;
             max-width: 450px;
-            box-shadow: var(--shadow);
         }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        .login-header { text-align: center; margin-bottom: 30px; }
         .login-header .logo-icon {
-            width: 70px;
-            height: 70px;
+            width: 70px; height: 70px;
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
-            font-size: 1.8rem;
-            color: var(--dark-bg);
+            font-size: 1.8rem; color: var(--dark-bg);
         }
-
         .login-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--gold);
+            font-size: 1.8rem; color: var(--gold);
             margin-bottom: 8px;
         }
-
-        .login-header p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
+        .login-header p { color: var(--text-secondary); font-size: 0.9rem; }
         .form-group { margin-bottom: 20px; }
-
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            display: block; margin-bottom: 8px;
+            font-size: 0.85rem; font-weight: 500;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
-
         .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
+            width: 100%; padding: 14px 16px;
             background: var(--dark-bg);
             border: 2px solid var(--dark-border);
             border-radius: 10px;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
-
         .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            outline: none; border-color: var(--gold);
         }
-
         .form-group textarea { resize: vertical; min-height: 100px; }
-
-        .password-wrapper {
-            position: relative;
-        }
-
-        .password-wrapper input {
-            padding-right: 45px;
-        }
-
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 45px; }
         .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
+            position: absolute; right: 15px; top: 50%;
             transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: var(--transition);
+            background: none; border: none;
+            color: var(--text-secondary);
+            cursor: pointer; font-size: 1rem;
         }
-
-        .toggle-password:hover { color: var(--gold); }
-
         .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
+            width: 100%; padding: 14px;
+            border: none; border-radius: 10px;
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: var(--dark-bg);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: var(--dark-border);
-            color: var(--text-primary);
-            margin-top: 10px;
-        }
-
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-secondary { background: var(--dark-border); color: var(--text-primary); margin-top: 10px; }
         .btn-secondary:hover { background: var(--dark-bg); }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover { background: #dc2626; }
-
-        .btn-small {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            width: auto;
-        }
-
-        .alert {
-            padding: 14px 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-
-        .alert.active { display: flex; }
-        .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
-        .alert-error { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); }
-        .alert-warning { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); color: var(--warning); }
-        .alert-info { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--info); color: var(--info); }
-
-        .password-requirements {
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .password-requirements h4 {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .req-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            transition: var(--transition);
-        }
-
-        .req-item.met { color: var(--success); }
-        .req-item i { font-size: 0.75rem; width: 16px; }
-
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--dark-border);
-        }
-
-        .login-footer small {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .login-footer .default-info {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 0.8rem;
-            color: var(--gold);
-        }
-
-        /* ===== DASHBOARD ===== */
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-small { padding: 10px 20px; font-size: 0.9rem; width: auto; }
         .dashboard { display: none; }
-
         .navbar {
             background: var(--dark-card);
             border-bottom: 1px solid var(--dark-border);
             padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 15px;
         }
-
         .navbar h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.5rem; color: var(--gold);
+            display: flex; align-items: center; gap: 10px;
         }
-
-        .navbar-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .session-info {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px;
-        }
-
+        .navbar-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px; }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 20px; margin-bottom: 40px;
         }
-
         .stat-card {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: var(--transition);
+            border-radius: 15px; padding: 25px;
+            display: flex; align-items: center; gap: 20px;
+            transition: all 0.3s ease;
         }
-
-        .stat-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
-
+        .stat-card:hover { border-color: var(--gold); transform: translateY(-3px); }
         .stat-icon {
             width: 60px; height: 60px;
             border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
+            font-size: 1.5rem; flex-shrink: 0;
         }
-
         .stat-icon.gold { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
         .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--info); }
         .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .stat-icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
-
-        .stat-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
+        .stat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; }
         .stat-info p { color: var(--text-secondary); font-size: 0.85rem; }
-
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 30px;
+            flex-wrap: wrap; gap: 15px;
         }
-
         .section-header h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
         }
-
         .project-card {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: var(--transition);
+            border-radius: 15px; overflow: hidden;
+            transition: all 0.3s ease;
         }
-
         .project-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
             box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1);
         }
-
         .project-image { width: 100%; height: 200px; object-fit: cover; }
-
         .project-info { padding: 20px; }
-
         .project-tag {
             display: inline-block;
             background: rgba(212, 175, 55, 0.1);
             color: var(--gold);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            padding: 5px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600;
             margin-bottom: 10px;
         }
-
         .project-info h3 { font-size: 1.1rem; margin-bottom: 10px; }
-
         .project-info p {
             color: var(--text-secondary);
-            font-size: 0.88rem;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            font-size: 0.88rem; margin-bottom: 15px; line-height: 1.6;
         }
-
         .project-actions { display: flex; gap: 10px; }
-
         .project-actions button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: var(--transition);
+            flex: 1; padding: 10px;
+            border: none; border-radius: 8px;
+            cursor: pointer; font-weight: 500;
+            font-size: 0.85rem; transition: all 0.3s ease;
         }
-
         .btn-edit { background: rgba(59, 130, 246, 0.1); color: var(--info); }
         .btn-edit:hover { background: var(--info); color: white; }
         .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .btn-delete:hover { background: var(--danger); color: white; }
-
-        /* ===== MODAL ===== */
         .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
+            display: none; position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(5px);
+            align-items: center; justify-content: center;
+            padding: 20px; backdrop-filter: blur(5px);
         }
-
         .modal.active { display: flex; }
-
         .modal-content {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
+            border-radius: 20px; padding: 40px;
+            width: 100%; max-width: 700px;
+            max-height: 90vh; overflow-y: auto;
         }
-
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--dark-border);
         }
-
         .modal-header h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .close-modal {
-            background: none;
-            border: none;
+            background: none; border: none;
             color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
+            font-size: 1.5rem; cursor: pointer;
         }
-
         .close-modal:hover { color: var(--danger); }
-
         .image-upload {
             border: 2px dashed var(--dark-border);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: var(--transition);
+            border-radius: 10px; padding: 30px;
+            text-align: center; margin-bottom: 20px;
+            cursor: pointer; transition: all 0.3s ease;
         }
-
         .image-upload:hover {
             border-color: var(--gold);
             background: rgba(212, 175, 55, 0.05);
         }
-
         .image-upload i { font-size: 2.5rem; color: var(--gold); margin-bottom: 10px; }
         .image-upload input { display: none; }
-
         .image-preview {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
+            width: 100%; max-height: 200px;
+            object-fit: cover; border-radius: 10px;
+            margin-top: 15px; display: none;
         }
-
         .image-preview.active { display: block; }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
+        .alert {
+            padding: 14px 18px; border-radius: 10px;
+            margin-bottom: 20px;
+            display: none; align-items: center; gap: 10px;
+            font-size: 0.9rem;
         }
-
+        .alert.active { display: flex; }
+        .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
+        .alert-error { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); }
+        .alert-warning { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); color: var(--warning); }
+        .alert-info { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--info); color: var(--info); }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
         .empty-state i { font-size: 4rem; color: var(--dark-border); margin-bottom: 20px; }
         .empty-state h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-primary); }
-
         .status-bar {
             background: var(--dark-surface);
             border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            padding: 15px 20px;
+            border-radius: 10px; padding: 15px 20px;
             margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            gap: 12px;
+            display: none; align-items: center; gap: 12px;
             font-size: 0.9rem;
         }
-
         .status-bar.active { display: flex; }
         .status-bar.syncing { border-color: var(--info); }
         .status-bar.success { border-color: var(--success); }
         .status-bar.error { border-color: var(--danger); }
-
         .loading-spinner {
             display: inline-block;
             width: 20px; height: 20px;
@@ -542,51 +283,26 @@
             border-top-color: var(--gold);
             animation: spin 1s ease-in-out infinite;
         }
-
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ===== PASSWORD CHANGE MODAL ===== */
-        .password-change-section {
-            background: var(--dark-bg);
+        .data-actions {
+            display: flex; gap: 10px; flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .data-actions button {
+            padding: 10px 18px;
             border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-
-        .password-change-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .password-strength {
-            height: 6px;
-            background: var(--dark-border);
-            border-radius: 3px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .password-strength-bar {
-            height: 100%;
-            width: 0%;
-            border-radius: 3px;
+            border-radius: 8px;
+            background: var(--dark-surface);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex; align-items: center; gap: 8px;
             transition: all 0.3s ease;
         }
-
-        .strength-weak { width: 33%; background: var(--danger); }
-        .strength-medium { width: 66%; background: var(--warning); }
-        .strength-strong { width: 100%; background: var(--success); }
-
-        .strength-text {
-            font-size: 0.8rem;
-            margin-top: 5px;
-            color: var(--text-muted);
+        .data-actions button:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
         }
-
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
             .navbar { flex-direction: column; }
@@ -597,20 +313,15 @@
 </head>
 <body>
 
-    <!-- ===== LOGIN SCREEN ===== -->
+    <!-- Login Screen -->
     <div class="login-container" id="loginScreen">
         <div class="login-box">
             <div class="login-header">
-                <div class="logo-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
                 <h1>Admin Panel</h1>
-                <p id="loginSubtitle">Enter your credentials to continue</p>
+                <p>Enter your credentials to continue</p>
             </div>
-
             <div class="alert alert-error" id="loginError"></div>
-            <div class="alert alert-warning" id="loginWarning"></div>
-
             <form id="loginForm">
                 <div class="form-group">
                     <label><i class="fas fa-user"></i> Username</label>
@@ -629,110 +340,24 @@
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
             </form>
-
-            <div class="login-footer">
-                <small><i class="fas fa-lock"></i> Secured with SHA-256 encryption</small>
-                <div class="default-info" id="defaultInfo">
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--dark-border);">
+                <small style="color: var(--text-secondary); font-size: 0.8rem;">
                     <i class="fas fa-info-circle"></i> Default: admin / admin123
-                </div>
+                </small>
             </div>
         </div>
     </div>
 
-    <!-- ===== PASSWORD CHANGE SCREEN (First Time) ===== -->
-    <div class="login-container" id="passwordChangeScreen" style="display: none;">
-        <div class="login-box">
-            <div class="login-header">
-                <div class="logo-icon" style="background: linear-gradient(135deg, var(--warning), #d97706);">
-                    <i class="fas fa-key"></i>
-                </div>
-                <h1>Change Password</h1>
-                <p>This is your first login. Please set a new password.</p>
-            </div>
-
-            <div class="alert alert-info" id="changeInfo">
-                <i class="fas fa-info-circle"></i>
-                <span>For security, you must change the default password before continuing.</span>
-            </div>
-
-            <div class="alert alert-error" id="changeError"></div>
-            <div class="alert alert-success" id="changeSuccess"></div>
-
-            <div class="password-requirements">
-                <h4><i class="fas fa-shield-alt"></i> Password Requirements</h4>
-                <div class="req-item" id="req-length">
-                    <i class="fas fa-circle"></i> At least 8 characters
-                </div>
-                <div class="req-item" id="req-upper">
-                    <i class="fas fa-circle"></i> One uppercase letter (A-Z)
-                </div>
-                <div class="req-item" id="req-lower">
-                    <i class="fas fa-circle"></i> One lowercase letter (a-z)
-                </div>
-                <div class="req-item" id="req-number">
-                    <i class="fas fa-circle"></i> One number (0-9)
-                </div>
-                <div class="req-item" id="req-special">
-                    <i class="fas fa-circle"></i> One special character (!@#$%^&*)
-                </div>
-            </div>
-
-            <form id="changePasswordForm">
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Current Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="currentPassword" placeholder="Enter current password" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('currentPassword', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-key"></i> New Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="newPassword" placeholder="Enter new password" required oninput="checkPasswordStrength(this.value)">
-                        <button type="button" class="toggle-password" onclick="togglePassword('newPassword', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                    <div class="password-strength">
-                        <div class="password-strength-bar" id="strengthBar"></div>
-                    </div>
-                    <div class="strength-text" id="strengthText">Password strength</div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" id="changeBtn">
-                    <i class="fas fa-save"></i> Save New Password
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ===== DASHBOARD ===== -->
+    <!-- Dashboard -->
     <div class="dashboard" id="dashboard">
         <nav class="navbar">
             <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
             <div class="navbar-actions">
-                <div class="session-info">
-                    <i class="fas fa-clock"></i>
-                    <span id="sessionTimer">30:00</span>
-                </div>
                 <a href="index.html" target="_blank" class="btn btn-secondary btn-small">
                     <i class="fas fa-external-link-alt"></i> View Site
                 </a>
                 <button class="btn btn-primary btn-small" onclick="openProjectModal()">
                     <i class="fas fa-plus"></i> Add Project
-                </button>
-                <button class="btn btn-secondary btn-small" onclick="openPasswordModal()">
-                    <i class="fas fa-key"></i> Change Password
                 </button>
                 <button class="btn btn-secondary btn-small" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -755,31 +380,48 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon blue"><i class="fas fa-cloud"></i></div>
+                    <div class="stat-icon blue"><i class="fas fa-database"></i></div>
                     <div class="stat-info">
-                        <h3 id="syncStatus">--</h3>
-                        <p>GitHub Sync</p>
+                        <h3 id="storageStatus">Local</h3>
+                        <p>Storage Type</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon green"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
                     <div class="stat-info">
-                        <h3>Secure</h3>
-                        <p>Password Status</p>
+                        <h3>Active</h3>
+                        <p>Status</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon purple"><i class="fas fa-user-shield"></i></div>
+                    <div class="stat-icon purple"><i class="fas fa-clock"></i></div>
                     <div class="stat-info">
-                        <h3 id="lastLogin">--</h3>
-                        <p>Last Login</p>
+                        <h3 id="lastUpdated">--</h3>
+                        <p>Last Updated</p>
                     </div>
                 </div>
             </div>
 
+            <!-- Data Management Actions -->
+            <div class="data-actions">
+                <button onclick="downloadJSON()">
+                    <i class="fas fa-download"></i> Download projects.json
+                </button>
+                <button onclick="document.getElementById('importFile').click()">
+                    <i class="fas fa-upload"></i> Import from JSON
+                </button>
+                <button onclick="loadFromGitHub()">
+                    <i class="fas fa-sync-alt"></i> Sync from GitHub
+                </button>
+                <button onclick="pushToGitHub()">
+                    <i class="fas fa-cloud-upload-alt"></i> Push to GitHub
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+            </div>
+
             <div class="section-header">
                 <h2><i class="fas fa-briefcase"></i> Manage Projects</h2>
-                <button class="btn btn-secondary btn-small" onclick="loadFromGitHub()">
+                <button class="btn btn-secondary btn-small" onclick="renderProjects()">
                     <i class="fas fa-sync-alt"></i> Refresh
                 </button>
             </div>
@@ -794,7 +436,7 @@
         </div>
     </div>
 
-    <!-- ===== PROJECT MODAL ===== -->
+    <!-- Project Modal -->
     <div class="modal" id="projectModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -859,143 +501,22 @@
         </div>
     </div>
 
-    <!-- ===== PASSWORD CHANGE MODAL (From Dashboard) ===== -->
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-key"></i> Change Password</h2>
-                <button class="close-modal" onclick="closePasswordModal()"><i class="fas fa-times"></i></button>
-            </div>
-
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i>
-                <span>Choose a strong password to keep your admin panel secure.</span>
-            </div>
-
-            <div class="alert alert-error" id="pwdChangeError"></div>
-            <div class="alert alert-success" id="pwdChangeSuccess"></div>
-
-            <div class="password-requirements">
-                <h4><i class="fas fa-shield-alt"></i> Password Requirements</h4>
-                <div class="req-item" id="req2-length"><i class="fas fa-circle"></i> At least 8 characters</div>
-                <div class="req-item" id="req2-upper"><i class="fas fa-circle"></i> One uppercase letter (A-Z)</div>
-                <div class="req-item" id="req2-lower"><i class="fas fa-circle"></i> One lowercase letter (a-z)</div>
-                <div class="req-item" id="req2-number"><i class="fas fa-circle"></i> One number (0-9)</div>
-                <div class="req-item" id="req2-special"><i class="fas fa-circle"></i> One special character (!@#$%^&*)</div>
-            </div>
-
-            <form id="dashboardPasswordForm">
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Current Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="dashCurrentPwd" placeholder="Enter current password" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('dashCurrentPwd', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-key"></i> New Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="dashNewPwd" placeholder="Enter new password" required oninput="checkDashboardPasswordStrength(this.value)">
-                        <button type="button" class="toggle-password" onclick="togglePassword('dashNewPwd', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                    <div class="password-strength">
-                        <div class="password-strength-bar" id="dashStrengthBar"></div>
-                    </div>
-                    <div class="strength-text" id="dashStrengthText">Password strength</div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="dashConfirmPwd" placeholder="Confirm new password" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('dashConfirmPwd', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" id="dashChangeBtn">
-                    <i class="fas fa-save"></i> Update Password
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="closePasswordModal()">Cancel</button>
-            </form>
-        </div>
-    </div>
-
+    <script src="config.js"></script>
     <script>
-        // ============================================
-        // ADMIN PANEL - COMPLETE SYSTEM
-        // ============================================
-
-        // ===== DEFAULT CREDENTIALS =====
+        // ===== AUTHENTICATION =====
         const DEFAULT_USERNAME = 'admin';
         const DEFAULT_PASSWORD = 'admin123';
-
-        // ===== STATE =====
         let projects = [];
         let fileSha = null;
-        let sessionInterval = null;
 
-        // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeAuth();
-        });
-
-        // ===== AUTH INITIALIZATION =====
-        async function initializeAuth() {
-            const authData = getAuthData();
-
-            if (!authData) {
-                // First time - use default credentials
-                console.log('First time setup - using default credentials');
-                return;
-            }
-
-            if (authData.isFirstLogin) {
-                // Logged in but needs to change password
-                showPasswordChangeScreen();
-            } else if (isValidSession()) {
-                // Valid session
-                showDashboard();
-            }
-            // else - show login screen (default)
+        // Check if already logged in
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            showDashboard();
         }
 
-        // ===== AUTH DATA MANAGEMENT =====
-        function getAuthData() {
-            const data = localStorage.getItem('adminAuth');
-            return data ? JSON.parse(data) : null;
-        }
-
-        function saveAuthData(data) {
-            localStorage.setItem('adminAuth', JSON.stringify(data));
-        }
-
-        function getDefaultAuthData() {
-            return {
-                usernameHash: null,
-                passwordHash: null,
-                isFirstLogin: true,
-                createdAt: Date.now(),
-                lastChanged: null
-            };
-        }
-
-        // ===== SHA-256 HASH =====
-        async function hashString(str) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(str);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hashBuffer))
-                .map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // ===== LOGIN =====
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
             const loginBtn = document.getElementById('loginBtn');
@@ -1003,359 +524,27 @@
             loginBtn.innerHTML = '<div class="loading-spinner"></div> Verifying...';
             loginBtn.disabled = true;
 
-            hideAlerts('loginError', 'loginWarning');
-
-            // Check brute force
-            const attempts = getLoginAttempts();
-            if (attempts.locked && Date.now() < attempts.lockUntil) {
-                const remaining = Math.ceil((attempts.lockUntil - Date.now()) / 60000);
-                showAlert('loginError', `<i class="fas fa-lock"></i> Account locked. Try again in ${remaining} minutes.`);
-                resetLoginBtn();
-                return;
-            }
-
-            // Get auth data
-            let authData = getAuthData();
-            if (!authData) {
-                authData = getDefaultAuthData();
-            }
-
-            // Hash inputs
-            const usernameHash = await hashString(username);
-            const passwordHash = await hashString(password);
-
-            // Determine expected credentials
-            let expectedUserHash, expectedPassHash;
-
-            if (authData.usernameHash && authData.passwordHash) {
-                // Custom credentials set
-                expectedUserHash = authData.usernameHash;
-                expectedPassHash = authData.passwordHash;
+            // Simple authentication
+            if (username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
             } else {
-                // Default credentials
-                expectedUserHash = await hashString(DEFAULT_USERNAME);
-                expectedPassHash = await hashString(DEFAULT_PASSWORD);
+                showAlert('loginError', '<i class="fas fa-exclamation-circle"></i> Invalid username or password.');
             }
 
-            // Verify
-            if (usernameHash === expectedUserHash && passwordHash === expectedPassHash) {
-                // Success
-                resetLoginAttempts();
-
-                // Save session
-                const session = {
-                    token: generateToken(),
-                    createdAt: Date.now(),
-                    expiresAt: Date.now() + (30 * 60 * 1000),
-                    userAgent: navigator.userAgent
-                };
-                localStorage.setItem('adminSession', JSON.stringify(session));
-
-                // Update last login
-                authData.lastLogin = Date.now();
-                saveAuthData(authData);
-
-                // Check if first login
-                if (authData.isFirstLogin) {
-                    showPasswordChangeScreen();
-                } else {
-                    showDashboard();
-                }
-            } else {
-                // Failed
-                const newAttempts = recordFailedAttempt();
-                if (newAttempts.locked) {
-                    showAlert('loginError', '<i class="fas fa-lock"></i> Too many failed attempts! Locked for 15 minutes.');
-                } else {
-                    const remaining = 5 - newAttempts.count;
-                    showAlert('loginError', `<i class="fas fa-exclamation-circle"></i> Invalid credentials. ${remaining} attempts remaining.`);
-                }
-            }
-
-            resetLoginBtn();
+            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            loginBtn.disabled = false;
         });
-
-        // ===== PASSWORD CHANGE (First Time) =====
-        document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            await handleChangePassword(true);
-        });
-
-        // ===== PASSWORD CHANGE (From Dashboard) =====
-        document.getElementById('dashboardPasswordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            await handleChangePassword(false);
-        });
-
-        async function handleChangePassword(isFirstTime) {
-            const currentPwd = isFirstTime 
-                ? document.getElementById('currentPassword').value 
-                : document.getElementById('dashCurrentPwd').value;
-            
-            const newPwd = isFirstTime 
-                ? document.getElementById('newPassword').value 
-                : document.getElementById('dashNewPwd').value;
-            
-            const confirmPwd = isFirstTime 
-                ? document.getElementById('confirmPassword').value 
-                : document.getElementById('dashConfirmPwd').value;
-
-            const errorId = isFirstTime ? 'changeError' : 'pwdChangeError';
-            const successId = isFirstTime ? 'changeSuccess' : 'pwdChangeSuccess';
-            const btnId = isFirstTime ? 'changeBtn' : 'dashChangeBtn';
-
-            hideAlerts(errorId, successId);
-
-            const btn = document.getElementById(btnId);
-            btn.innerHTML = '<div class="loading-spinner"></div> Saving...';
-            btn.disabled = true;
-
-            // Validate
-            const validation = validatePassword(newPwd, confirmPwd);
-            if (!validation.valid) {
-                showAlert(errorId, `<i class="fas fa-exclamation-circle"></i> ${validation.message}`);
-                resetBtn(btn, isFirstTime ? '<i class="fas fa-save"></i> Save New Password' : '<i class="fas fa-save"></i> Update Password');
-                return;
-            }
-
-            // Verify current password
-            let authData = getAuthData();
-            if (!authData) authData = getDefaultAuthData();
-
-            const currentPwdHash = await hashString(currentPwd);
-            let expectedCurrentHash;
-
-            if (authData.passwordHash) {
-                expectedCurrentHash = authData.passwordHash;
-            } else {
-                expectedCurrentHash = await hashString(DEFAULT_PASSWORD);
-            }
-
-            if (currentPwdHash !== expectedCurrentHash) {
-                showAlert(errorId, '<i class="fas fa-exclamation-circle"></i> Current password is incorrect.');
-                resetBtn(btn, isFirstTime ? '<i class="fas fa-save"></i> Save New Password' : '<i class="fas fa-save"></i> Update Password');
-                return;
-            }
-
-            // Hash new password
-            const newPwdHash = await hashString(newPwd);
-            const usernameHash = authData.usernameHash || await hashString(DEFAULT_USERNAME);
-
-            // Save new credentials
-            authData.usernameHash = usernameHash;
-            authData.passwordHash = newPwdHash;
-            authData.isFirstLogin = false;
-            authData.lastChanged = Date.now();
-            saveAuthData(authData);
-
-            // Update session
-            const session = JSON.parse(localStorage.getItem('adminSession'));
-            if (session) {
-                session.expiresAt = Date.now() + (30 * 60 * 1000);
-                localStorage.setItem('adminSession', JSON.stringify(session));
-            }
-
-            showAlert(successId, '<i class="fas fa-check-circle"></i> Password changed successfully!');
-
-            setTimeout(() => {
-                if (isFirstTime) {
-                    showDashboard();
-                } else {
-                    closePasswordModal();
-                    // Reset form
-                    document.getElementById('dashboardPasswordForm').reset();
-                    document.getElementById('dashStrengthBar').className = 'password-strength-bar';
-                    document.getElementById('dashStrengthText').textContent = 'Password strength';
-                    resetRequirements('req2-');
-                }
-            }, 1500);
-
-            resetBtn(btn, isFirstTime ? '<i class="fas fa-save"></i> Save New Password' : '<i class="fas fa-save"></i> Update Password');
-        }
-
-        // ===== PASSWORD VALIDATION =====
-        function validatePassword(password, confirmPassword) {
-            if (password.length < 8) {
-                return { valid: false, message: 'Password must be at least 8 characters long.' };
-            }
-            if (!/[A-Z]/.test(password)) {
-                return { valid: false, message: 'Password must contain at least one uppercase letter.' };
-            }
-            if (!/[a-z]/.test(password)) {
-                return { valid: false, message: 'Password must contain at least one lowercase letter.' };
-            }
-            if (!/[0-9]/.test(password)) {
-                return { valid: false, message: 'Password must contain at least one number.' };
-            }
-            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-                return { valid: false, message: 'Password must contain at least one special character.' };
-            }
-            if (password !== confirmPassword) {
-                return { valid: false, message: 'Passwords do not match.' };
-            }
-            if (password === DEFAULT_PASSWORD) {
-                return { valid: false, message: 'Cannot use default password. Choose a different one.' };
-            }
-            return { valid: true };
-        }
-
-        // ===== PASSWORD STRENGTH CHECKER =====
-        function checkPasswordStrength(password) {
-            updateStrengthUI(password, 'strengthBar', 'strengthText', 'req-');
-        }
-
-        function checkDashboardPasswordStrength(password) {
-            updateStrengthUI(password, 'dashStrengthBar', 'dashStrengthText', 'req2-');
-        }
-
-        function updateStrengthUI(password, barId, textId, reqPrefix) {
-            const bar = document.getElementById(barId);
-            const text = document.getElementById(textId);
-
-            let score = 0;
-            if (password.length >= 8) score++;
-            if (password.length >= 12) score++;
-            if (/[A-Z]/.test(password)) score++;
-            if (/[0-9]/.test(password)) score++;
-            if (/[!@#$%^&*]/.test(password)) score++;
-
-            // Update requirements
-            updateRequirement(reqPrefix + 'length', password.length >= 8);
-            updateRequirement(reqPrefix + 'upper', /[A-Z]/.test(password));
-            updateRequirement(reqPrefix + 'lower', /[a-z]/.test(password));
-            updateRequirement(reqPrefix + 'number', /[0-9]/.test(password));
-            updateRequirement(reqPrefix + 'special', /[!@#$%^&*]/.test(password));
-
-            // Update strength bar
-            bar.className = 'password-strength-bar';
-            if (password.length === 0) {
-                text.textContent = 'Password strength';
-            } else if (score <= 2) {
-                bar.classList.add('strength-weak');
-                text.textContent = 'Weak password';
-                text.style.color = 'var(--danger)';
-            } else if (score <= 4) {
-                bar.classList.add('strength-medium');
-                text.textContent = 'Medium strength';
-                text.style.color = 'var(--warning)';
-            } else {
-                bar.classList.add('strength-strong');
-                text.textContent = 'Strong password';
-                text.style.color = 'var(--success)';
-            }
-        }
-
-        function updateRequirement(id, met) {
-            const el = document.getElementById(id);
-            if (el) {
-                if (met) {
-                    el.classList.add('met');
-                    el.querySelector('i').className = 'fas fa-check-circle';
-                } else {
-                    el.classList.remove('met');
-                    el.querySelector('i').className = 'fas fa-circle';
-                }
-            }
-        }
-
-        function resetRequirements(prefix) {
-            ['length', 'upper', 'lower', 'number', 'special'].forEach(req => {
-                updateRequirement(prefix + req, false);
-            });
-        }
-
-        // ===== SESSION MANAGEMENT =====
-        function isValidSession() {
-            const session = JSON.parse(localStorage.getItem('adminSession'));
-            if (!session) return false;
-            if (Date.now() > session.expiresAt) {
-                localStorage.removeItem('adminSession');
-                return false;
-            }
-            return true;
-        }
-
-        function generateToken() {
-            const array = new Uint8Array(32);
-            crypto.getRandomValues(array);
-            return Array.from(array, b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // ===== BRUTE FORCE PROTECTION =====
-        function getLoginAttempts() {
-            return JSON.parse(localStorage.getItem('loginAttempts') || '{"count":0,"locked":false,"lockUntil":0}');
-        }
-
-        function recordFailedAttempt() {
-            const attempts = getLoginAttempts();
-            attempts.count++;
-            if (attempts.count >= 5) {
-                attempts.locked = true;
-                attempts.lockUntil = Date.now() + (15 * 60 * 1000);
-            }
-            localStorage.setItem('loginAttempts', JSON.stringify(attempts));
-            return attempts;
-        }
-
-        function resetLoginAttempts() {
-            localStorage.setItem('loginAttempts', JSON.stringify({count: 0, locked: false, lockUntil: 0}));
-        }
-
-        // ===== UI FUNCTIONS =====
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('passwordChangeScreen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'none';
-        }
-
-        function showPasswordChangeScreen() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('passwordChangeScreen').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
-        }
 
         function showDashboard() {
             document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('passwordChangeScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            
-            loadFromGitHub();
-            startSessionTimer();
-            updateLastLogin();
+            loadProjects();
         }
 
         function logout() {
-            localStorage.removeItem('adminSession');
-            if (sessionInterval) clearInterval(sessionInterval);
+            localStorage.removeItem('adminLoggedIn');
             location.reload();
-        }
-
-        function startSessionTimer() {
-            const session = JSON.parse(localStorage.getItem('adminSession'));
-            if (!session) return;
-
-            if (sessionInterval) clearInterval(sessionInterval);
-
-            sessionInterval = setInterval(() => {
-                const remaining = session.expiresAt - Date.now();
-                if (remaining <= 0) {
-                    clearInterval(sessionInterval);
-                    logout();
-                    return;
-                }
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                document.getElementById('sessionTimer').textContent = 
-                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
-        }
-
-        function updateLastLogin() {
-            const authData = getAuthData();
-            if (authData && authData.lastLogin) {
-                const date = new Date(authData.lastLogin);
-                document.getElementById('lastLogin').textContent = date.toLocaleDateString();
-            }
         }
 
         function togglePassword(inputId, btn) {
@@ -1370,127 +559,52 @@
             }
         }
 
-        function showAlert(id, message) {
-            const el = document.getElementById(id);
-            el.innerHTML = message;
-            el.classList.add('active');
-        }
-
-        function hideAlerts(...ids) {
-            ids.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.classList.remove('active');
-            });
-        }
-
-        function resetLoginBtn() {
-            const btn = document.getElementById('loginBtn');
-            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-            btn.disabled = false;
-        }
-
-        function resetBtn(btn, html) {
-            btn.innerHTML = html;
-            btn.disabled = false;
-        }
-
-        // ===== GITHUB API =====
-        function getGitHubConfig() {
-            return typeof GITHUB_CONFIG !== 'undefined' ? GITHUB_CONFIG : {
-                username: 'YOUR_USERNAME',
-                repo: 'my-portfolio',
-                branch: 'main',
-                path: 'projects.json'
-            };
-        }
-
-        async function loadFromGitHub() {
-            showStatus('Loading projects from GitHub...', 'syncing');
-            document.getElementById('syncStatus').textContent = '...';
-
-            try {
-                const config = getGitHubConfig();
-                const API_BASE = `https://api.github.com/repos/${config.username}/${config.repo}/contents/${config.path}`;
-                
-                // Note: For public read, no token needed
-                const response = await fetch(
-                    `https://raw.githubusercontent.com/${config.username}/${config.repo}/${config.branch}/${config.path}`
-                );
-                
-                if (!response.ok) throw new Error('Failed to fetch');
-
-                projects = await response.json();
-                showStatus('✅ Loaded from GitHub!', 'success');
-                document.getElementById('syncStatus').textContent = 'Connected';
-                renderProjects();
-
-            } catch (error) {
-                console.error('Load error:', error);
-                showStatus('⚠️ Using local data', 'error');
-                document.getElementById('syncStatus').textContent = 'Local';
-                
-                const local = localStorage.getItem('projects');
-                projects = local ? JSON.parse(local) : getDefaultProjects();
-                renderProjects();
+        // ===== PROJECT MANAGEMENT =====
+        function loadProjects() {
+            // Load from localStorage first
+            const stored = localStorage.getItem('adminProjects');
+            if (stored) {
+                projects = JSON.parse(stored);
+            } else {
+                projects = getDefaultProjects();
+                saveToLocalStorage();
             }
+            renderProjects();
+            updateStats();
         }
 
-        async function saveToGitHub() {
-            showStatus('Syncing to GitHub...', 'syncing');
-
-            try {
-                const config = getGitHubConfig();
-                const API_BASE = `https://api.github.com/repos/${config.username}/${config.repo}/contents/${config.path}`;
-                
-                // For write operations, you need a token
-                // This is a simplified version - in production, use a backend/worker
-                const content = btoa(JSON.stringify(projects, null, 2));
-                
-                const body = {
-                    message: `Update projects - ${new Date().toISOString()}`,
-                    content: content,
-                    branch: config.branch
-                };
-
-                if (fileSha) body.sha = fileSha;
-
-                // Note: This requires a token in config
-                if (config.token) {
-                    const response = await fetch(API_BASE, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${config.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        },
-                        body: JSON.stringify(body)
-                    });
-
-                    if (!response.ok) throw new Error('Save failed');
-                    const data = await response.json();
-                    fileSha = data.content.sha;
-                }
-
-                // Always save locally as backup
-                localStorage.setItem('projects', JSON.stringify(projects));
-                
-                showStatus('✅ Saved successfully!', 'success');
-                document.getElementById('syncStatus').textContent = 'Synced';
-                return true;
-
-            } catch (error) {
-                console.error('Save error:', error);
-                localStorage.setItem('projects', JSON.stringify(projects));
-                showStatus('⚠️ Saved locally only', 'error');
-                document.getElementById('syncStatus').textContent = 'Local';
-                return false;
-            }
+        function saveToLocalStorage() {
+            localStorage.setItem('adminProjects', JSON.stringify(projects));
+            localStorage.setItem('lastUpdated', new Date().toLocaleString());
+            updateStats();
         }
 
         function getDefaultProjects() {
             return [
-                { id: 1, title: "Foodie's Kitchen", tag: "Restaurant", description: "Modern restaurant landing page.", image: "https://images.unsplash.com/photo-1555396273?w=600", url: "#" },
-                { id: 2, title: "Glow Salon", tag: "Beauty & Salon", description: "Elegant beauty salon page.", image: "https://images.unsplash.com/photo-1560066984?w=600", url: "#" },
-                { id: 3, title: "MediCare Clinic", tag: "Healthcare", description: "Professional clinic landing page.", image: "https://images.unsplash.com/photo-1576091160399?w=600", url: "#" }
+                {
+                    id: 1,
+                    title: "Foodie's Kitchen - Restaurant Landing",
+                    tag: "Restaurant",
+                    description: "A modern landing page for a local restaurant with menu showcase, online ordering, and reservation system.",
+                    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+                    url: "#"
+                },
+                {
+                    id: 2,
+                    title: "Glow Salon - Beauty Parlour",
+                    tag: "Beauty & Salon",
+                    description: "Elegant landing page for a beauty salon featuring services gallery, booking system, and customer testimonials.",
+                    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop",
+                    url: "#"
+                },
+                {
+                    id: 3,
+                    title: "MediCare Clinic - Health Center",
+                    tag: "Healthcare",
+                    description: "Professional landing page for a local clinic with doctor profiles, appointment booking, and health services.",
+                    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+                    url: "#"
+                }
             ];
         }
 
@@ -1509,7 +623,7 @@
             emptyState.style.display = 'none';
             grid.innerHTML = projects.map(project => `
                 <div class="project-card">
-                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                    <img src="${project.image}" alt="${project.title}" class="project-image" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
                     <div class="project-info">
                         <span class="project-tag">${project.tag}</span>
                         <h3>${project.title}</h3>
@@ -1527,7 +641,14 @@
             `).join('');
         }
 
-        // ===== PROJECT MODAL =====
+        function updateStats() {
+            document.getElementById('totalProjects').textContent = projects.length;
+            document.getElementById('storageStatus').textContent = 'Local';
+            const lastUpdated = localStorage.getItem('lastUpdated') || '--';
+            document.getElementById('lastUpdated').textContent = lastUpdated;
+        }
+
+        // ===== MODAL FUNCTIONS =====
         function openProjectModal(editMode = false) {
             document.getElementById('projectModal').classList.add('active');
             document.getElementById('projectModalTitle').innerHTML = editMode ? 
@@ -1564,7 +685,8 @@
             }
         }
 
-        document.getElementById('projectForm').addEventListener('submit', async function(e) {
+        // Save Project
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('saveProjectBtn');
@@ -1591,16 +713,17 @@
                 projects.push(projectData);
             }
 
-            await saveToGitHub();
+            // Save to localStorage
+            saveToLocalStorage();
             renderProjects();
 
-            document.getElementById('projectSuccess').classList.add('active');
+            showAlert('projectSuccess', '<i class="fas fa-check-circle"></i> Project saved successfully!');
             btn.innerHTML = '<i class="fas fa-save"></i> Save Project';
             btn.disabled = false;
 
             setTimeout(() => {
                 closeProjectModal();
-                document.getElementById('projectSuccess').classList.remove('active');
+                hideAlerts('projectSuccess');
             }, 1500);
         });
 
@@ -1622,56 +745,164 @@
             }
         }
 
-        async function deleteProject(id) {
+        function deleteProject(id) {
             if (!confirm('Are you sure you want to delete this project?')) return;
             projects = projects.filter(p => p.id !== id);
-            await saveToGitHub();
+            saveToLocalStorage();
             renderProjects();
         }
 
-        // ===== PASSWORD MODAL =====
-        function openPasswordModal() {
-            document.getElementById('passwordModal').classList.add('active');
-            hideAlerts('pwdChangeError', 'pwdChangeSuccess');
-            document.getElementById('dashboardPasswordForm').reset();
-            resetRequirements('req2-');
-            document.getElementById('dashStrengthBar').className = 'password-strength-bar';
-            document.getElementById('dashStrengthText').textContent = 'Password strength';
+        // ===== DATA MANAGEMENT =====
+        function downloadJSON() {
+            const dataStr = JSON.stringify(projects, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'projects.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showStatus('✅ projects.json downloaded! Upload it to your GitHub repo.', 'success');
         }
 
-        function closePasswordModal() {
-            document.getElementById('passwordModal').classList.remove('active');
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        projects = imported;
+                        saveToLocalStorage();
+                        renderProjects();
+                        showStatus('✅ Projects imported successfully!', 'success');
+                    } else {
+                        showStatus('❌ Invalid JSON format. Must be an array.', 'error');
+                    }
+                } catch (err) {
+                    showStatus('❌ Error reading file: ' + err.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
 
-        // ===== STATUS BAR =====
+        // ===== GITHUB SYNC =====
+        async function loadFromGitHub() {
+            showStatus('Loading from GitHub...', 'syncing');
+
+            try {
+                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.username) {
+                    showStatus('⚠️ GitHub config not set. Using local data.', 'error');
+                    return;
+                }
+
+                const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) throw new Error('Failed to fetch');
+
+                const data = await response.json();
+                projects = data;
+                saveToLocalStorage();
+                renderProjects();
+                document.getElementById('storageStatus').textContent = 'GitHub';
+                showStatus('✅ Loaded from GitHub successfully!', 'success');
+
+            } catch (error) {
+                console.error('GitHub load error:', error);
+                showStatus('⚠️ Could not load from GitHub. Using local data.', 'error');
+            }
+        }
+
+        async function pushToGitHub() {
+            showStatus('Pushing to GitHub...', 'syncing');
+
+            try {
+                if (typeof GITHUB_CONFIG === 'undefined' || !GITHUB_CONFIG.token) {
+                    showStatus('⚠️ GitHub token not set in config.js', 'error');
+                    return;
+                }
+
+                const config = GITHUB_CONFIG;
+                const API_BASE = `https://api.github.com/repos/${config.username}/${config.repo}/contents/${config.path}`;
+                
+                // First get the current file to get SHA
+                const getResponse = await fetch(API_BASE, {
+                    headers: {
+                        'Authorization': `token ${config.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                let sha = null;
+                if (getResponse.ok) {
+                    const getData = await getResponse.json();
+                    sha = getData.sha;
+                }
+
+                const content = btoa(JSON.stringify(projects, null, 2));
+                const body = {
+                    message: `Update projects - ${new Date().toISOString()}`,
+                    content: content,
+                    branch: config.branch
+                };
+
+                if (sha) body.sha = sha;
+
+                const response = await fetch(API_BASE, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${config.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.message || 'Push failed');
+                }
+
+                showStatus('✅ Pushed to GitHub successfully!', 'success');
+                document.getElementById('storageStatus').textContent = 'GitHub';
+
+            } catch (error) {
+                console.error('GitHub push error:', error);
+                showStatus('❌ Push failed: ' + error.message, 'error');
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showAlert(id, message) {
+            const el = document.getElementById(id);
+            el.innerHTML = message;
+            el.classList.add('active');
+        }
+
+        function hideAlerts(...ids) {
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('active');
+            });
+        }
+
         function showStatus(message, type = 'syncing') {
             const bar = document.getElementById('statusBar');
             const text = document.getElementById('statusText');
             bar.className = `status-bar active ${type}`;
             text.textContent = message;
             if (type === 'success' || type === 'error') {
-                setTimeout(() => bar.classList.remove('active'), 3000);
+                setTimeout(() => bar.classList.remove('active'), 4000);
             }
         }
 
-        // ===== CLOSE MODALS ON OUTSIDE CLICK =====
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
-        });
-
-        // ===== EXTEND SESSION ON ACTIVITY =====
-        ['click', 'keypress', 'scroll', 'mousemove'].forEach(event => {
-            document.addEventListener(event, () => {
-                const session = JSON.parse(localStorage.getItem('adminSession'));
-                if (session) {
-                    session.expiresAt = Date.now() + (30 * 60 * 1000);
-                    localStorage.setItem('adminSession', JSON.stringify(session));
-                }
-            });
+        // Close modal on outside click
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProjectModal();
         });
     </script>
 </body>
