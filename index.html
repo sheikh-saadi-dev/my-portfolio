@@ -106,6 +106,53 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Mode Selector -->
+<div class="nav-dropdown">
+    <button class="nav-icon-btn" onclick="toggleDropdown('modePanel')" title="Visual Mode">
+        <i class="fas fa-adjust"></i>
+    </button>
+    <div class="dropdown-panel" id="modePanel">
+        <div class="dropdown-header">
+            <i class="fas fa-adjust"></i>
+            <span>Visual Mode</span>
+        </div>
+        <div class="dropdown-options">
+            <button class="option-btn active" data-mode="dark" onclick="selectMode('dark', this)">
+                <span class="mode-icon">🌙</span>
+                <span>Dark</span>
+            </button>
+            <button class="option-btn" data-mode="light" onclick="selectMode('light', this)">
+                <span class="mode-icon">☀️</span>
+                <span>Light</span>
+            </button>
+            <button class="option-btn" data-mode="sunlight" onclick="selectMode('sunlight', this)">
+                <span class="mode-icon">🌞</span>
+                <span>Sunlight</span>
+            </button>
+            <button class="option-btn" data-mode="sunset" onclick="selectMode('sunset', this)">
+                <span class="mode-icon">🌅</span>
+                <span>Sunset</span>
+            </button>
+            <button class="option-btn" data-mode="midnight" onclick="selectMode('midnight', this)">
+                <span class="mode-icon">🌌</span>
+                <span>Midnight</span>
+            </button>
+            <button class="option-btn" data-mode="forest" onclick="selectMode('forest', this)">
+                <span class="mode-icon">🌲</span>
+                <span>Forest</span>
+            </button>
+            <button class="option-btn" data-mode="ocean" onclick="selectMode('ocean', this)">
+                <span class="mode-icon">🌊</span>
+                <span>Ocean</span>
+            </button>
+            <button class="option-btn" data-mode="minimal" onclick="selectMode('minimal', this)">
+                <span class="mode-icon">⚪</span>
+                <span>Minimal</span>
+            </button>
+        </div>
+    </div>
+</div>
 
                 <!-- 2. Theme Dropdown -->
                 <div class="nav-dropdown">
