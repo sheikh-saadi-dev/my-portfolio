@@ -55,6 +55,48 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// ===== MODE SELECT =====
+function selectMode(mode, btn) {
+    document.body.setAttribute('data-mode', mode);
+    
+    document.querySelectorAll('#modePanel .option-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    document.getElementById('modePanel').classList.remove('active');
+    localStorage.setItem('selectedMode', mode);
+    
+    // Update particle colors based on mode
+    initParticles();
+}
+
+// ===== LOAD SAVED MODE =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Load saved mode
+    const savedMode = localStorage.getItem('selectedMode') || 'dark';
+    document.body.setAttribute('data-mode', savedMode);
+    document.querySelectorAll('#modePanel .option-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === savedMode);
+    });
+});
+
+// ===== UPDATE PARTICLE COLORS FOR MODES =====
+function getParticleColor() {
+    const mode = document.body.getAttribute('data-mode');
+    const colors = {
+        dark: '212, 175, 55',
+        light: '59, 130, 246',
+        sunlight: '249, 115, 22',
+        sunset: '244, 63, 94',
+        midnight: '99, 102, 241',
+        forest: '16, 185, 129',
+        ocean: '6, 182, 212',
+        minimal: '148, 163, 184'
+    };
+    return colors[mode] || '212, 175, 55';
+}
+
 // ===== LANGUAGE SELECT =====
 function selectLanguage(code, btn) {
     document.getElementById('currentLang').textContent = code;
