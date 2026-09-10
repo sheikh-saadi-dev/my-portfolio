@@ -1,5 +1,6 @@
 /* ========================================
    SHEIKH SAADI - PORTFOLIO JAVASCRIPT
+   Complete & Fixed Version
    ======================================== */
 
 // ===== LOADING SCREEN =====
@@ -10,7 +11,7 @@ const loadingScreen = document.getElementById('loadingScreen');
 
 if (loadingText) {
     const nameText = "SHEIKH SAADI";
-    nameText.split('').forEach((char, index) => {
+    nameText.split('').forEach((char) => {
         const span = document.createElement('span');
         span.textContent = char === ' ' ? '\u00A0' : char;
         loadingText.appendChild(span);
@@ -27,7 +28,7 @@ if (loadingText) {
         if (progress === 100) {
             clearInterval(loadingInterval);
             setTimeout(() => {
-                loadingScreen.classList.add('hidden');
+                if (loadingScreen) loadingScreen.classList.add('hidden');
                 setTimeout(initAnimations, 500);
             }, 500);
         }
@@ -185,9 +186,10 @@ function initAnimations() {
 
 // ===== PARTICLE BACKGROUND =====
 const canvas = document.getElementById('particles-canvas');
+let particles = [];
+
 if (canvas) {
     const ctx = canvas.getContext('2d');
-    let particles = [];
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -240,7 +242,9 @@ if (canvas) {
     function initParticles() {
         particles = [];
         const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
-        for (let i = 0; i < count; i++) particles.push(new Particle());
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
     }
     initParticles();
 
@@ -248,7 +252,10 @@ if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const color = getParticleColor();
         
-        particles.forEach(p => { p.update(); p.draw(); });
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
 
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
@@ -284,55 +291,54 @@ if (cursor) {
     });
 }
 
-// ===== LOAD PROJECTS =====
-async function loadProjects() {
-    const grid = document.getElementById('projectsGrid');
-    if (!grid) return;
-    
-    let projects = null;
-
-    // Try 1: Load from GitHub
-    try {
-        if (typeof GITHUB_CONFIG !== 'undefined' && GITHUB_CONFIG.username && GITHUB_CONFIG.username !== 'YOUR_GITHUB_USERNAME') {
-            const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`;
-            const response = await fetch(url);
-            if (response.ok) {
-                projects = await response.json();
-                console.log('✅ Loaded from GitHub');
-            }
+// ===== DEFAULT PROJECTS =====
+function getDefaultProjects() {
+    return [
+        { 
+            id: 1, 
+            title: "Foodie's Kitchen - Restaurant Landing", 
+            tag: "Restaurant", 
+            description: "A modern landing page for a local restaurant with menu showcase, online ordering, and reservation system.", 
+            image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop", 
+            url: "#" 
+        },
+        { 
+            id: 2, 
+            title: "Glow Salon - Beauty Parlour", 
+            tag: "Beauty & Salon", 
+            description: "Elegant landing page for a beauty salon featuring services gallery, booking system, and customer testimonials.", 
+            image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop", 
+            url: "#" 
+        },
+        { 
+            id: 3, 
+            title: "MediCare Clinic - Health Center", 
+            tag: "Healthcare", 
+            description: "Professional landing page for a local clinic with doctor profiles, appointment booking, and health services.", 
+            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop", 
+            url: "#" 
         }
-    } catch (error) {
-        console.log('GitHub fetch failed:', error);
-    }
-
-    // Try 2: Load from localStorage
-    if (!projects || projects.length === 0) {
-        const stored = localStorage.getItem('adminProjects');
-        if (stored) {
-            try {
-                projects = JSON.parse(stored);
-                console.log('✅ Loaded from localStorage');
-            } catch (e) {
-                console.log('localStorage parse error:', e);
-            }
-        }
-    }
-
-    // Try 3: Default projects
-    if (!projects || projects.length === 0) {
-        projects = getDefaultProjects();
-        console.log('✅ Using default projects');
-    }
-
-    renderProjects(projects);
+    ];
 }
 
+// ===== RENDER PROJECTS =====
 function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
-    if (!grid) return;
+    if (!grid) {
+        console.error('❌ projectsGrid element not found!');
+        return;
+    }
+    
+    if (!projects || projects.length === 0) {
+        console.log('️ No projects to render');
+        grid.innerHTML = '<p style="text-align:center; color: var(--text-secondary); padding: 40px;">No projects available.</p>';
+        return;
+    }
+
+    console.log(' Rendering', projects.length, 'projects');
     
     grid.innerHTML = projects.map(project => `
-        <div class="project-card reveal">
+        <div class="project-card reveal active">
             <div class="project-image">
                 <img src="${project.image}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
                 <div class="project-overlay">
@@ -349,28 +355,128 @@ function renderProjects(projects) {
             </div>
         </div>
     `).join('');
-
-    setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach(el => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('active');
-                });
-            }, { threshold: 0.15 });
-            observer.observe(el);
-        });
-    }, 100);
 }
 
-function getDefaultProjects() {
-    return [
-        { id: 1, title: "Foodie's Kitchen - Restaurant Landing", tag: "Restaurant", description: "A modern landing page for a local restaurant.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop", url: "#" },
-        { id: 2, title: "Glow Salon - Beauty Parlour", tag: "Beauty & Salon", description: "Elegant landing page for a beauty salon.", image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop", url: "#" },
-        { id: 3, title: "MediCare Clinic - Health Center", tag: "Healthcare", description: "Professional landing page for a local clinic.", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop", url: "#" }
-    ];
+// ===== LOAD PROJECTS (FIXED VERSION) =====
+async function loadProjects() {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) {
+        console.error('❌ projectsGrid not found in DOM');
+        return;
+    }
+    
+    console.log('🔄 Starting to load projects...');
+    let projects = null;
+
+    // Priority 1: Load from localStorage (admin panel saves here)
+    try {
+        const stored = localStorage.getItem('adminProjects');
+        console.log('📦 localStorage adminProjects:', stored ? 'Found' : 'Not found');
+        
+        if (stored) {
+            projects = JSON.parse(stored);
+            console.log('✅ Loaded from localStorage:', projects.length, 'projects');
+        }
+    } catch (e) {
+        console.error('❌ localStorage parse error:', e);
+    }
+
+    // Priority 2: Load from GitHub
+    if (!projects || projects.length === 0) {
+        try {
+            if (typeof GITHUB_CONFIG !== 'undefined' && 
+                GITHUB_CONFIG.username && 
+                GITHUB_CONFIG.username !== 'YOUR_GITHUB_USERNAME' &&
+                GITHUB_CONFIG.username !== 'your-github-username') {
+                
+                const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`;
+                console.log('🌐 Fetching from GitHub:', url);
+                
+                const response = await fetch(url);
+                if (response.ok) {
+                    projects = await response.json();
+                    console.log('✅ Loaded from GitHub:', projects.length, 'projects');
+                } else {
+                    console.log('⚠️ GitHub response status:', response.status);
+                }
+            } else {
+                console.log('⚠️ GitHub config not properly set');
+            }
+        } catch (error) {
+            console.log('️ GitHub fetch failed:', error.message);
+        }
+    }
+
+    // Priority 3: Default projects
+    if (!projects || projects.length === 0) {
+        projects = getDefaultProjects();
+        console.log('✅ Using default projects:', projects.length);
+    }
+
+    // Render
+    renderProjects(projects);
+    console.log('✅ Projects loaded successfully!');
 }
 
-loadProjects();
+// ===== LOAD PROJECTS ON PAGE LOAD =====
+// Try multiple times to ensure it works
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOM Content Loaded');
+    
+    // Load preferences first
+    loadPreferences();
+    
+    // Then load projects with delays
+    setTimeout(loadProjects, 300);
+    setTimeout(loadProjects, 1000);
+    setTimeout(loadProjects, 2000);
+});
+
+// Also load on window load
+window.addEventListener('load', function() {
+    console.log(' Window fully loaded');
+    loadProjects();
+});
+
+// ===== LOAD SAVED PREFERENCES =====
+function loadPreferences() {
+    // Theme
+    const savedTheme = localStorage.getItem('selectedTheme') || 'gold';
+    document.body.setAttribute('data-theme', savedTheme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === savedTheme);
+    });
+    
+    // Font
+    const savedFont = localStorage.getItem('selectedFont') || 'default';
+    document.body.setAttribute('data-font', savedFont);
+    document.querySelectorAll('#fontPanel .option-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.font === savedFont);
+    });
+    
+    // Mode
+    const savedMode = localStorage.getItem('selectedMode') || 'dark';
+    document.body.setAttribute('data-mode', savedMode);
+    document.querySelectorAll('#modePanel .option-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === savedMode);
+    });
+    
+    // Language
+    const savedLang = localStorage.getItem('selectedLang') || 'EN';
+    const badge = document.getElementById('currentLang');
+    if (badge) badge.textContent = savedLang;
+    document.querySelectorAll('#langPanel .option-btn').forEach(btn => {
+        const langText = btn.querySelector('span:last-child').textContent;
+        const langMap = { 
+            'English': 'EN', 'বাংলা': 'BN', 'हिन्दी': 'HI', 
+            'العربية': 'AR', 'Español': 'ES', 'Français': 'FR', 
+            'اردو': 'UR', 'Türkçe': 'TR' 
+        };
+        if (langMap[langText] === savedLang) btn.classList.add('active');
+    });
+    
+    console.log('✅ Preferences loaded');
+}
 
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.getElementById('scrollTop');
@@ -422,29 +528,32 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== LOAD PREFERENCES =====
-document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('selectedTheme') || 'gold';
-    document.body.setAttribute('data-theme', savedTheme);
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.theme === savedTheme);
-    });
-    
-    const savedFont = localStorage.getItem('selectedFont') || 'default';
-    document.body.setAttribute('data-font', savedFont);
-    document.querySelectorAll('#fontPanel .option-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.font === savedFont);
-    });
-    
-    const savedMode = localStorage.getItem('selectedMode') || 'dark';
-    document.body.setAttribute('data-mode', savedMode);
-    document.querySelectorAll('#modePanel .option-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === savedMode);
-    });
-    
-    const savedLang = localStorage.getItem('selectedLang') || 'EN';
-    const badge = document.getElementById('currentLang');
-    if (badge) badge.textContent = savedLang;
+// ===== SKILL LEVEL ANIMATION =====
+const skillCards = document.querySelectorAll('.skill-card');
+if (skillCards.length > 0) {
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.3 });
+
+    skillCards.forEach(card => skillObserver.observe(card));
+}
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.remove('active'));
+        closeMobileMenu();
+    }
 });
 
-console.log('✅ Portfolio Script Loaded!');
+// ===== DEBUG INFO =====
+console.log('========================================');
+console.log('✅ Sheikh Saadi Portfolio Script Loaded');
+console.log('========================================');
+console.log(' localStorage keys:', Object.keys(localStorage));
+console.log('📦 adminProjects:', localStorage.getItem('adminProjects') ? 'Exists' : 'Not found');
+console.log('========================================');
