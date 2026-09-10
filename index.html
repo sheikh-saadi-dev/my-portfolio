@@ -8,25 +8,24 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&
-        Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&
-        Cinzel:wght@400;500;600;700;800;900&
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&
+        Cormorant+Garamond:ital,wght@0,400;0,600;1,400&
+        Cinzel:wght@400;700;900&
         Cinzel+Decorative:wght@400;700;900&
-        Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&
-        Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&
-        Syne:wght@400;500;600;700;800&
-        Unbounded:wght@200;300;400;500;600;700;800;900&
+        Montserrat:wght@300;400;600;700;800&
+        Raleway:wght@300;400;600;700&
+        Syne:wght@400;600;700;800&
+        Unbounded:wght@300;400;600;700;800;900&
         DM+Serif+Display:ital@0;1&
         Instrument+Serif:ital@0;1&
-        Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400&
+        Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&
         Space+Grotesk:wght@300;400;500;600;700&
-        Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400&
-        Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&
-        Outfit:wght@100;200;300;400;500;600;700;800;900&
-        Archivo:wght@100;200;300;400;500;600;700;800;900&
-        Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&
-        Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&
-        Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        Plus+Jakarta+Sans:wght@300;400;500;600;700;800&
+        Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&
+        Outfit:wght@300;400;500;600;700;800;900&
+        Archivo:wght@400;600;700;800;900&
+        Poppins:wght@300;400;500;600;700;800;900&
+        Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,9 +33,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
+<body data-theme="gold" data-font="default">
 
-    <!-- Loading Screen -->
+    <!-- ===== LOADING SCREEN ===== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-text-container">
             <div class="loading-text" id="loadingText"></div>
@@ -46,78 +45,174 @@
         </div>
         <div class="loading-percentage" id="loadingPercentage">0%</div>
         <div class="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
     </div>
 
-    <!-- Custom Cursor -->
+    <!-- ===== CUSTOM CURSOR ===== -->
     <div class="cursor-follower" id="cursor"></div>
 
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
-
-    <!-- Font Switcher -->
-    <div class="font-switcher" id="fontSwitcher">
-        <div class="font-switcher-toggle" onclick="toggleFontSwitcher()">
-            <i class="fas fa-font"></i>
-        </div>
-        <div class="font-switcher-panel" id="fontPanel">
-            <h4>Choose Font Style</h4>
-            <div class="font-options">
-                <button class="font-btn active" data-theme="default" onclick="changeFont('default')">
-                    <span class="font-preview" style="font-family: 'Playfair Display', serif;">Aa</span>
-                    <span>Luxury Classic</span>
-                </button>
-                <button class="font-btn" data-theme="modern" onclick="changeFont('modern')">
-                    <span class="font-preview" style="font-family: 'Unbounded', sans-serif;">Aa</span>
-                    <span>Modern Bold</span>
-                </button>
-                <button class="font-btn" data-theme="elegant" onclick="changeFont('elegant')">
-                    <span class="font-preview" style="font-family: 'DM Serif Display', serif;">Aa</span>
-                    <span>Elegant Minimal</span>
-                </button>
-                <button class="font-btn" data-theme="creative" onclick="changeFont('creative')">
-                    <span class="font-preview" style="font-family: 'Bricolage Grotesque', sans-serif;">Aa</span>
-                    <span>Creative Unique</span>
-                </button>
-                <button class="font-btn" data-theme="tech" onclick="changeFont('tech')">
-                    <span class="font-preview" style="font-family: 'Space Grotesk', sans-serif;">Aa</span>
-                    <span>Tech Futuristic</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Particle Canvas -->
+    <!-- ===== PARTICLE CANVAS ===== -->
     <canvas id="particles-canvas"></canvas>
 
-    <!-- Navbar -->
+    <!-- ===== NAVBAR (Glass Blur) ===== -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
+            <!-- Left: Logo -->
             <a href="#" class="nav-logo">
-                S<span class="logo-gold">S</span><span class="logo-line"></span>
+                <span class="logo-ss">SS</span>
+                <span class="logo-text">Sheikh Saadi</span>
             </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact" class="nav-cta">Hire Me</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <!-- Right: Controls -->
+            <div class="nav-controls">
+                
+                <!-- 1. Language Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-icon-btn" onclick="toggleDropdown('langPanel')" title="Language">
+                        <i class="fas fa-globe"></i>
+                        <span class="badge-text" id="currentLang">EN</span>
+                    </button>
+                    <div class="dropdown-panel" id="langPanel">
+                        <div class="dropdown-header">
+                            <i class="fas fa-globe"></i>
+                            <span>Select Language</span>
+                        </div>
+                        <div class="dropdown-options">
+                            <button class="option-btn active" onclick="selectLanguage('EN', this)">
+                                <span class="flag">🇺</span><span>English</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('BN', this)">
+                                <span class="flag">🇧🇩</span><span>বাংলা</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('HI', this)">
+                                <span class="flag">🇮🇳</span><span>हिन्दी</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('AR', this)">
+                                <span class="flag">🇸🇦</span><span>العربية</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('ES', this)">
+                                <span class="flag">🇪🇸</span><span>Español</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('FR', this)">
+                                <span class="flag">🇫🇷</span><span>Français</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('UR', this)">
+                                <span class="flag">🇵🇰</span><span>اردو</span>
+                            </button>
+                            <button class="option-btn" onclick="selectLanguage('TR', this)">
+                                <span class="flag">🇹🇷</span><span>Türkçe</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Theme Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-icon-btn" onclick="toggleDropdown('themePanel')" title="Theme">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                    <div class="dropdown-panel wide-panel" id="themePanel">
+                        <div class="dropdown-header">
+                            <i class="fas fa-palette"></i>
+                            <span>Select Theme</span>
+                        </div>
+                        <div class="theme-grid">
+                            <button class="theme-btn active" data-theme="gold" onclick="selectTheme('gold', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #d4af37, #b8960c);"></div>
+                                <span>Gold</span>
+                            </button>
+                            <button class="theme-btn" data-theme="blue" onclick="selectTheme('blue', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"></div>
+                                <span>Blue</span>
+                            </button>
+                            <button class="theme-btn" data-theme="purple" onclick="selectTheme('purple', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);"></div>
+                                <span>Purple</span>
+                            </button>
+                            <button class="theme-btn" data-theme="emerald" onclick="selectTheme('emerald', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #10b981, #059669);"></div>
+                                <span>Emerald</span>
+                            </button>
+                            <button class="theme-btn" data-theme="rose" onclick="selectTheme('rose', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #f43f5e, #e11d48);"></div>
+                                <span>Rose</span>
+                            </button>
+                            <button class="theme-btn" data-theme="cyan" onclick="selectTheme('cyan', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #06b6d4, #0891b2);"></div>
+                                <span>Cyan</span>
+                            </button>
+                            <button class="theme-btn" data-theme="orange" onclick="selectTheme('orange', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #f97316, #ea580c);"></div>
+                                <span>Orange</span>
+                            </button>
+                            <button class="theme-btn" data-theme="silver" onclick="selectTheme('silver', this)">
+                                <div class="color-circle" style="background: linear-gradient(135deg, #94a3b8, #64748b);"></div>
+                                <span>Silver</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Font Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-icon-btn" onclick="toggleDropdown('fontPanel')" title="Font">
+                        <i class="fas fa-font"></i>
+                    </button>
+                    <div class="dropdown-panel" id="fontPanel">
+                        <div class="dropdown-header">
+                            <i class="fas fa-font"></i>
+                            <span>Select Font</span>
+                        </div>
+                        <div class="dropdown-options">
+                            <button class="option-btn active" data-font="default" onclick="selectFont('default', this)">
+                                <span class="font-preview" style="font-family: 'Playfair Display', serif;">Aa</span>
+                                <span>Luxury Classic</span>
+                            </button>
+                            <button class="option-btn" data-font="modern" onclick="selectFont('modern', this)">
+                                <span class="font-preview" style="font-family: 'Unbounded', sans-serif;">Aa</span>
+                                <span>Modern Bold</span>
+                            </button>
+                            <button class="option-btn" data-font="elegant" onclick="selectFont('elegant', this)">
+                                <span class="font-preview" style="font-family: 'DM Serif Display', serif;">Aa</span>
+                                <span>Elegant Minimal</span>
+                            </button>
+                            <button class="option-btn" data-font="creative" onclick="selectFont('creative', this)">
+                                <span class="font-preview" style="font-family: 'Bricolage Grotesque', sans-serif;">Aa</span>
+                                <span>Creative Unique</span>
+                            </button>
+                            <button class="option-btn" data-font="tech" onclick="selectFont('tech', this)">
+                                <span class="font-preview" style="font-family: 'Space Grotesk', sans-serif;">Aa</span>
+                                <span>Tech Futuristic</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="#contact" class="nav-cta">Hire Me</a>
+
+                <!-- 3-Line Hamburger (Mobile) -->
+                <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="closeMobileMenu()">Home</a>
+            <a href="#about" onclick="closeMobileMenu()">About</a>
+            <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+            <a href="#services" onclick="closeMobileMenu()">Services</a>
+            <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+            <a href="#contact" onclick="closeMobileMenu()">Contact</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="home">
         <div class="hero-bg-gradient"></div>
         <div class="hero-bg-gradient2"></div>
@@ -125,16 +220,16 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="pulse-dot"></span>
-                    Available for Projects
+                    <span>Available for Projects</span>
                 </div>
                 <h1>Sheikh Saadi</h1>
                 <p class="hero-title-sub">Landing Page Developer</p>
                 <p>I build high-converting, responsive landing pages for local businesses. Turn your visitors into customers with clean, fast, and beautiful designs that drive real results.</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-gold">
+                    <a href="#projects" class="btn btn-primary">
                         <i class="fas fa-eye"></i> View Projects
                     </a>
-                    <a href="#contact" class="btn btn-outline-gold">
+                    <a href="#contact" class="btn btn-outline">
                         <i class="fas fa-paper-plane"></i> Contact Me
                     </a>
                 </div>
@@ -157,7 +252,7 @@
                 <div class="hero-image-wrapper" id="heroImage">
                     <div class="hero-image-ring"></div>
                     <div class="hero-image-ring2"></div>
-                    <img src="https://i.ibb.co/YFqBxgJ/photo-2025.jpg" alt="Sheikh Saadi">
+                    <img src="image/my-image.jpg" alt="Sheikh Saadi" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'">
                     <div class="floating-card top-card">
                         <div class="fc-icon"><i class="fas fa-code"></i></div>
                         <div class="fc-text">
@@ -177,7 +272,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ===== ABOUT SECTION ===== -->
     <section class="about section" id="about">
         <div class="container">
             <div class="section-header reveal">
@@ -214,7 +309,7 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- ===== SKILLS SECTION ===== -->
     <section class="skills section" id="skills">
         <div class="container">
             <div class="section-header reveal">
@@ -258,7 +353,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- ===== SERVICES SECTION ===== -->
     <section class="services section" id="services">
         <div class="container">
             <div class="section-header reveal">
@@ -280,7 +375,7 @@
                         <li><i class="fas fa-check"></i> 3 Day Delivery</li>
                         <li><i class="fas fa-check"></i> 1 Revision</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline-gold" style="width:100%; justify-content:center;">Get Started</a>
+                    <a href="#contact" class="btn btn-outline" style="width:100%; justify-content:center;">Get Started</a>
                 </div>
                 <div class="service-card featured reveal-scale">
                     <div class="service-icon"><i class="fas fa-gem"></i></div>
@@ -296,13 +391,13 @@
                         <li><i class="fas fa-check"></i> 3 Revisions</li>
                         <li><i class="fas fa-check"></i> Admin Panel</li>
                     </ul>
-                    <a href="#contact" class="btn btn-gold" style="width:100%; justify-content:center;">Get Started</a>
+                    <a href="#contact" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- ===== PROJECTS SECTION ===== -->
     <section class="projects section" id="projects">
         <div class="container">
             <div class="section-header reveal">
@@ -312,12 +407,12 @@
                 <div class="gold-line"></div>
             </div>
             <div class="projects-grid" id="projectsGrid">
-                <!-- Projects loaded from GitHub -->
+                <!-- Projects loaded from GitHub via JS -->
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Me -->
+    <!-- ===== WHY CHOOSE ME ===== -->
     <section class="why-choose section" id="why">
         <div class="container">
             <div class="section-header reveal">
@@ -351,7 +446,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- ===== CONTACT SECTION ===== -->
     <section class="contact section" id="contact">
         <div class="container">
             <div class="section-header reveal">
@@ -422,7 +517,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -469,7 +564,6 @@
 
     <!-- Config -->
     <script src="config.js"></script>
-    
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
