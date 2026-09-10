@@ -1,6 +1,5 @@
 /* ========================================
    SHEIKH SAADI - PORTFOLIO JAVASCRIPT
-   Complete Script with All Features
    ======================================== */
 
 // ===== LOADING SCREEN =====
@@ -103,11 +102,6 @@ function selectMode(mode, btn) {
     const panel = document.getElementById('modePanel');
     if (panel) panel.classList.remove('active');
     localStorage.setItem('selectedMode', mode);
-    
-    // Reinitialize particles with new color
-    if (typeof initParticles === 'function') {
-        initParticles();
-    }
 }
 
 // ===== MOBILE MENU =====
@@ -125,7 +119,7 @@ function closeMobileMenu() {
     if (mobileMenu) mobileMenu.classList.remove('active');
 }
 
-// ===== NAVBAR SCROLL EFFECT =====
+// ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 if (navbar) {
     window.addEventListener('scroll', () => {
@@ -133,7 +127,7 @@ if (navbar) {
     });
 }
 
-// ===== 3D TILT EFFECT ON HERO IMAGE =====
+// ===== 3D TILT EFFECT =====
 const heroImage = document.getElementById('heroImage');
 if (heroImage) {
     heroImage.addEventListener('mousemove', (e) => {
@@ -153,21 +147,17 @@ if (heroImage) {
     });
 }
 
-// ===== SCROLL REVEAL & COUNTER ANIMATIONS =====
+// ===== SCROLL REVEAL & COUNTER =====
 function initAnimations() {
-    // Scroll Reveal
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Counter Animation
     const counters = document.querySelectorAll('.counter');
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -195,10 +185,9 @@ function initAnimations() {
 
 // ===== PARTICLE BACKGROUND =====
 const canvas = document.getElementById('particles-canvas');
-let particles = [];
-
 if (canvas) {
     const ctx = canvas.getContext('2d');
+    let particles = [];
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -251,9 +240,7 @@ if (canvas) {
     function initParticles() {
         particles = [];
         const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
-        for (let i = 0; i < count; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < count; i++) particles.push(new Particle());
     }
     initParticles();
 
@@ -261,10 +248,7 @@ if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const color = getParticleColor();
         
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
+        particles.forEach(p => { p.update(); p.draw(); });
 
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
@@ -300,14 +284,14 @@ if (cursor) {
     });
 }
 
-// ===== LOAD PROJECTS (Multi-source) =====
+// ===== LOAD PROJECTS =====
 async function loadProjects() {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
     
     let projects = null;
 
-    // Try 1: Load from GitHub (raw URL)
+    // Try 1: Load from GitHub
     try {
         if (typeof GITHUB_CONFIG !== 'undefined' && GITHUB_CONFIG.username && GITHUB_CONFIG.username !== 'YOUR_GITHUB_USERNAME') {
             const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`;
@@ -321,7 +305,7 @@ async function loadProjects() {
         console.log('GitHub fetch failed:', error);
     }
 
-    // Try 2: Load from localStorage (admin panel saves here)
+    // Try 2: Load from localStorage
     if (!projects || projects.length === 0) {
         const stored = localStorage.getItem('adminProjects');
         if (stored) {
@@ -366,7 +350,6 @@ function renderProjects(projects) {
         </div>
     `).join('');
 
-    // Re-observe for animations
     setTimeout(() => {
         document.querySelectorAll('.reveal').forEach(el => {
             const observer = new IntersectionObserver((entries) => {
@@ -381,34 +364,12 @@ function renderProjects(projects) {
 
 function getDefaultProjects() {
     return [
-        { 
-            id: 1, 
-            title: "Foodie's Kitchen - Restaurant Landing", 
-            tag: "Restaurant", 
-            description: "A modern landing page for a local restaurant with menu showcase, online ordering, and reservation system.", 
-            image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop", 
-            url: "#" 
-        },
-        { 
-            id: 2, 
-            title: "Glow Salon - Beauty Parlour", 
-            tag: "Beauty & Salon", 
-            description: "Elegant landing page for a beauty salon featuring services gallery, booking system, and customer testimonials.", 
-            image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop", 
-            url: "#" 
-        },
-        { 
-            id: 3, 
-            title: "MediCare Clinic - Health Center", 
-            tag: "Healthcare", 
-            description: "Professional landing page for a local clinic with doctor profiles, appointment booking, and health services.", 
-            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop", 
-            url: "#" 
-        }
+        { id: 1, title: "Foodie's Kitchen - Restaurant Landing", tag: "Restaurant", description: "A modern landing page for a local restaurant.", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop", url: "#" },
+        { id: 2, title: "Glow Salon - Beauty Parlour", tag: "Beauty & Salon", description: "Elegant landing page for a beauty salon.", image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop", url: "#" },
+        { id: 3, title: "MediCare Clinic - Health Center", tag: "Healthcare", description: "Professional landing page for a local clinic.", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop", url: "#" }
     ];
 }
 
-// Load projects on page load
 loadProjects();
 
 // ===== SCROLL TO TOP =====
@@ -450,7 +411,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== PARALLAX ON SCROLL =====
+// ===== PARALLAX =====
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     const heroContent = document.querySelector('.hero-content');
@@ -461,124 +422,29 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== LOAD SAVED PREFERENCES =====
+// ===== LOAD PREFERENCES =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Load saved theme
     const savedTheme = localStorage.getItem('selectedTheme') || 'gold';
     document.body.setAttribute('data-theme', savedTheme);
     document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.theme === savedTheme);
     });
     
-    // Load saved font
     const savedFont = localStorage.getItem('selectedFont') || 'default';
     document.body.setAttribute('data-font', savedFont);
     document.querySelectorAll('#fontPanel .option-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.font === savedFont);
     });
     
-    // Load saved mode
     const savedMode = localStorage.getItem('selectedMode') || 'dark';
     document.body.setAttribute('data-mode', savedMode);
     document.querySelectorAll('#modePanel .option-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === savedMode);
     });
     
-    // Load saved language
     const savedLang = localStorage.getItem('selectedLang') || 'EN';
     const badge = document.getElementById('currentLang');
     if (badge) badge.textContent = savedLang;
-    document.querySelectorAll('#langPanel .option-btn').forEach(btn => {
-        const langText = btn.querySelector('span:last-child').textContent;
-        const langMap = { 
-            'English': 'EN', 
-            'বাংলা': 'BN', 
-            'हिन्दी': 'HI', 
-            'العربية': 'AR', 
-            'Español': 'ES', 
-            'Français': 'FR', 
-            'اردو': 'UR', 
-            'Türkçe': 'TR' 
-        };
-        if (langMap[langText] === savedLang) btn.classList.add('active');
-    });
 });
 
-// ===== SKILL LEVEL ANIMATION =====
-const skillCards = document.querySelectorAll('.skill-card');
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.3 });
-
-skillCards.forEach(card => skillObserver.observe(card));
-
-// ===== KEYBOARD SHORTCUTS =====
-document.addEventListener('keydown', function(e) {
-    // ESC to close all dropdowns and modals
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.dropdown-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-        closeMobileMenu();
-    }
-});
-
-// ===== PREVENT RIGHT CLICK ON IMAGES (Optional) =====
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-});
-
-// ===== LAZY LOADING FOR IMAGES =====
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                }
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-}
-
-// ===== PERFORMANCE OPTIMIZATION =====
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Throttle function for mouse events
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-console.log('✅ Portfolio Script Loaded Successfully!');
-console.log('🎨 Theme, Font, Mode, and Language preferences saved in localStorage');
-console.log('📊 Projects loaded from GitHub/localStorage/defaults');
+console.log('✅ Portfolio Script Loaded!');
