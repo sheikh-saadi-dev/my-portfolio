@@ -324,23 +324,17 @@ function getDefaultProjects() {
 // ===== RENDER PROJECTS =====
 function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
-    if (!grid) {
-        console.error('❌ projectsGrid element not found!');
-        return;
-    }
+    if (!grid) return;
     
     if (!projects || projects.length === 0) {
-        console.log('️ No projects to render');
-        grid.innerHTML = '<p style="text-align:center; color: var(--text-secondary); padding: 40px;">No projects available.</p>';
+        grid.innerHTML = '<p style="text-align:center; padding: 40px; color: #fff;">No projects available.</p>';
         return;
     }
 
-    console.log(' Rendering', projects.length, 'projects');
-    
     grid.innerHTML = projects.map(project => `
-        <div class="project-card reveal active">
+        <div class="project-card" style="opacity:1; visibility:visible;">
             <div class="project-image">
-                <img src="${project.image}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
+                <img src="${project.image}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/600x400'">
                 <div class="project-overlay">
                     <a href="${project.url}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                 </div>
@@ -355,6 +349,11 @@ function renderProjects(projects) {
             </div>
         </div>
     `).join('');
+    
+    // Force display
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
+    grid.style.gap = '30px';
 }
 
 // ===== LOAD PROJECTS (FIXED VERSION) =====
