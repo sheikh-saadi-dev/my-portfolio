@@ -32,75 +32,148 @@ const loadingInterval = setInterval(() => {
     }
 }, 200);
 
-// ===== THEME TOGGLE =====
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
-const themeIcon = themeToggle.querySelector('i');
-
-const savedTheme = localStorage.getItem('theme') || 'dark';
-body.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
-
-themeToggle.addEventListener('click', () => {
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+// ===== DROPDOWN TOGGLE =====
+function toggleDropdown(panelId) {
+    const panel = document.getElementById(panelId);
+    const allPanels = document.querySelectorAll('.dropdown-panel');
     
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-    initParticles();
+    allPanels.forEach(p => {
+        if (p.id !== panelId) {
+            p.classList.remove('active');
+        }
+    });
+    
+    panel.classList.toggle('active');
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+        document.querySelectorAll('.dropdown-panel').forEach(p => {
+            p.classList.remove('active');
+        });
+    }
 });
 
-function updateThemeIcon(theme) {
-    if (theme === 'light') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        themeToggle.classList.add('sun');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-        themeToggle.classList.remove('sun');
-    }
-}
-
-// ===== FONT SWITCHER =====
-function toggleFontSwitcher() {
-    document.getElementById('fontPanel').classList.toggle('active');
-}
-
-function changeFont(theme) {
-    if (theme === 'default') {
-        body.removeAttribute('data-font-theme');
-    } else {
-        body.setAttribute('data-font-theme', theme);
-    }
-    localStorage.setItem('fontTheme', theme);
+// ===== LANGUAGE SELECT =====
+function selectLanguage(code, btn) {
+    document.getElementById('currentLang').textContent = code;
     
-    document.querySelectorAll('.font-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.theme === theme) {
-            btn.classList.add('active');
-        }
+    document.querySelectorAll('#langPanel .option-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    document.getElementById('langPanel').classList.remove('active');
+    localStorage.setItem('selectedLang', code);
+}
+
+// ===== THEME SELECT =====
+function selectTheme(theme, btn) {
+    document.body.setAttribute('data-theme', theme);
+    
+    document.querySelectorAll('.theme-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    document.getElementById('themePanel').classList.remove('active');
+    localStorage.setItem('selectedTheme', theme);
+}
+
+// ===== FONT SELECT =====
+function selectFont(font, btn) {
+    document.body.setAttribute('data-font', font);
+    
+    document.querySelectorAll('#fontPanel .option-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    document.getElementById('fontPanel').classList.remove('active');
+    localStorage.setItem('selectedFont', font);
+}
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('active');
+}
+
+// ===== NAVBAR SCROLL =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===== 3D TILT EFFECT =====
+const heroImage = document.getElementById('heroImage');
+if (heroImage) {
+    heroImage.addEventListener('mousemove', (e) => {
+        const rect = heroImage.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+        heroImage.style.setProperty('--rotateX', rotateX + 'deg');
+        heroImage.style.setProperty('--rotateY', rotateY + 'deg');
+        heroImage.classList.add('tilt');
+    });
+    heroImage.addEventListener('mouseleave', () => {
+        heroImage.classList.remove('tilt');
     });
 }
 
-const savedFont = localStorage.getItem('fontTheme');
-if (savedFont && savedFont !== 'default') {
-    changeFont(savedFont);
+// ===== SCROLL REVEAL & COUNTER =====
+function initAnimations() {
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.dataset.target);
+                let current = 0;
+                const increment = target / 60;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + '+';
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + '+';
+                    }
+                }, 30);
+                counterObserver.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(c => counterObserver.observe(c));
 }
-
-// ===== CUSTOM CURSOR =====
-const cursor = document.getElementById('cursor');
-
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-});
-
-document.querySelectorAll('a, button, .skill-card, .project-card, .service-card, .why-card').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
 
 // ===== PARTICLE BACKGROUND =====
 const canvas = document.getElementById('particles-canvas');
@@ -115,8 +188,18 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 function getParticleColor() {
-    const theme = body.getAttribute('data-theme');
-    return theme === 'dark' ? '212, 175, 55' : '30, 58, 95';
+    const theme = document.body.getAttribute('data-theme');
+    const colors = {
+        gold: '212, 175, 55',
+        blue: '59, 130, 246',
+        purple: '139, 92, 246',
+        emerald: '16, 185, 129',
+        rose: '244, 63, 94',
+        cyan: '6, 182, 212',
+        orange: '249, 115, 22',
+        silver: '148, 163, 184'
+    };
+    return colors[theme] || '212, 175, 55';
 }
 
 class Particle {
@@ -182,81 +265,18 @@ function animateParticles() {
 }
 animateParticles();
 
-// ===== NAVBAR SCROLL =====
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
+// ===== CUSTOM CURSOR =====
+const cursor = document.getElementById('cursor');
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
 });
 
-// ===== HAMBURGER MENU =====
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
+document.querySelectorAll('a, button, .skill-card, .project-card, .service-card, .why-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
-
-// ===== 3D TILT EFFECT =====
-const heroImage = document.getElementById('heroImage');
-heroImage.addEventListener('mousemove', (e) => {
-    const rect = heroImage.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-    heroImage.style.setProperty('--rotateX', rotateX + 'deg');
-    heroImage.style.setProperty('--rotateY', rotateY + 'deg');
-    heroImage.classList.add('tilt');
-});
-heroImage.addEventListener('mouseleave', () => {
-    heroImage.classList.remove('tilt');
-});
-
-// ===== SCROLL REVEAL & COUNTER ANIMATIONS =====
-function initAnimations() {
-    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    const counters = document.querySelectorAll('.counter');
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.dataset.target);
-                let current = 0;
-                const increment = target / 60;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = target + '+';
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current) + '+';
-                    }
-                }, 30);
-                counterObserver.unobserve(counter);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(c => counterObserver.observe(c));
-}
 
 // ===== LOAD PROJECTS FROM GITHUB =====
 async function loadProjects() {
@@ -264,20 +284,22 @@ async function loadProjects() {
     if (!grid) return;
     
     try {
-        const response = await fetch(
-            `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`
-        );
-        
-        if (response.ok) {
-            const projects = await response.json();
-            renderProjects(projects);
-        } else {
-            throw new Error('Failed to fetch');
+        if (typeof GITHUB_CONFIG !== 'undefined') {
+            const response = await fetch(
+                `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.path}`
+            );
+            
+            if (response.ok) {
+                const projects = await response.json();
+                renderProjects(projects);
+                return;
+            }
         }
     } catch (error) {
         console.log('Using default projects');
-        renderProjects(getDefaultProjects());
     }
+    
+    renderProjects(getDefaultProjects());
 }
 
 function renderProjects(projects) {
@@ -303,7 +325,6 @@ function renderProjects(projects) {
         </div>
     `).join('');
 
-    // Re-observe for animations
     setTimeout(() => {
         document.querySelectorAll('.reveal').forEach(el => {
             const observer = new IntersectionObserver((entries) => {
@@ -324,10 +345,8 @@ function getDefaultProjects() {
     ];
 }
 
-// Load projects when page loads
-if (document.getElementById('projectsGrid')) {
-    loadProjects();
-}
+// Load projects
+loadProjects();
 
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.getElementById('scrollTop');
@@ -374,10 +393,30 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== CLOSE FONT PANEL ON OUTSIDE CLICK =====
-document.addEventListener('click', (e) => {
-    const fontSwitcher = document.getElementById('fontSwitcher');
-    if (!fontSwitcher.contains(e.target)) {
-        document.getElementById('fontPanel').classList.remove('active');
-    }
+// ===== LOAD SAVED PREFERENCES =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Load saved theme
+    const savedTheme = localStorage.getItem('selectedTheme') || 'gold';
+    document.body.setAttribute('data-theme', savedTheme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === savedTheme);
+    });
+    
+    // Load saved font
+    const savedFont = localStorage.getItem('selectedFont') || 'default';
+    document.body.setAttribute('data-font', savedFont);
+    document.querySelectorAll('#fontPanel .option-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.font === savedFont);
+    });
+    
+    // Load saved language
+    const savedLang = localStorage.getItem('selectedLang') || 'EN';
+    document.getElementById('currentLang').textContent = savedLang;
+    document.querySelectorAll('#langPanel .option-btn').forEach(btn => {
+        const langText = btn.querySelector('span:last-child').textContent;
+        const langMap = { 'English': 'EN', 'বাংলা': 'BN', 'हिन्दी': 'HI', 'العربية': 'AR', 'Español': 'ES', 'Français': 'FR', 'اردو': 'UR', 'Türkçe': 'TR' };
+        if (langMap[langText] === savedLang) {
+            btn.classList.add('active');
+        }
+    });
 });
